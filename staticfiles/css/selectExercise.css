@@ -1,0 +1,11 @@
+input {
+    height: 55px;
+}
+
+.btn-container {
+    min-width: 7.75em;
+}
+
+.list-group-item:hover {
+    background-color: #cefad0;
+}

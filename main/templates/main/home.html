@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block extraCSS %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet" href="">
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+{% if not user.is_authenticated %}
+<div class="intro-container mt-5">
+    <div class="intro">
+        <div class="text-div mb-5">
+            <b>WELCOME TO WORKOUT LOG</b>
+        </div>
+        <div class="btn-div mb-5">
+            <button class="btn btn-success">LOGIN</button>
+            <button class="btn btn-success">REGISTER</button>
+        </div>
+        <div class="subtext-div">
+            A free fitness website to log and track your workouts
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="how-to-container">
+    <div class="title-div">
+        <b>How to Use</b>
+    </div>
+    <div class="subtext-div mb-5">
+        The best way to use this website are as seen below
+    </div>
+    <div class="steps step-1 mb-3">
+        {% if user.is_authenticated %}
+        1. Register for an account and log in
+        {% else %}
+        Step 1. <a href="{% url 'register' %}">Register</a> for an account and <a href="{% url 'login' %}">log in</a>
+        {% endif %}
+    </div>
+    <div class="row equal-cols g-0">
+        <div class="col-md-4 col-12 mb-3">
+            <div class="steps step-2">
+                Step 2. 
+                <img src="{% static 'assets/step2.png' %}" alt="step 2">
+                Add exercises to log them in your workouts
+            </div>
+        </div>
+        <div class="col-md-4 col-12 mb-3">
+            <div class="steps step-3">
+                Step 3. 
+                <img src="{% static 'assets/step3.png' %}" alt="step 3">
+                Log workouts with an exercise
+            </div>
+        </div>
+        <div class="col-md-4 col-12 mb-3">
+            <div class="steps step-4">
+                Step 4. 
+                <img src="{% static 'assets/step4.png' %}" alt="step 4">
+                See your past workouts 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Delete Workout
+{% endblock %}
+
+{% block extraCSS %}
+<link href="{% static 'css/seePastWorkouts.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="p-3">
+    <h4>Are you sure you want to delete this workout? You can't undo this action.</h4>
+</div>
+
+<div class="custom-container mb-3">
+    <div class="row-1 p-2 custom-row">
+        <p class="row-title">Title: </p>
+        <p>{{workout.date|date:"SHORT_DATE_FORMAT"}}</p>
+    </div>     
+    <div class="p-2 custom-row">
+        <p class="row-title">Exercise: </p>
+        <p>{{workout.exercise}}</p>
+    </div>
+    <div class="row p-2 custom-row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <p class="row-title">Sets: </p>
+            <p>{{workout.sets}}</p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <p class="row-title">Reps: </p>
+            <p>{{workout.reps}}</p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <p class="row-title">Weight: </p>
+            <p>{{workout.weight}}</p>                      
+        </div>                  
+    </div>
+    <div class="row-4 p-2 custom-row">
+        <p class="row-title">Comment: </p>
+        <p>{{workout.comment}}</p>
+    </div>
+</div>
+
+<div class="mb-3 row buttons-div">
+    <div class="col-6">
+        <a href="javascript:window.history.back()">
+            <button type="button" class="btn btn-secondary">Go Back</button>
+        </a>
+    </div>
+    <div class="col-6">
+        <a href="{% url 'deleteWorkout' sort_by workout.id %}">
+            <button type="button" class="btn btn-danger">Delete</button>
+        </a> 
+    </div>
+</div>
+{% endblock %}
+
+

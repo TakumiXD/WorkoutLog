@@ -1,0 +1,55 @@
+form p label,
+#id_exercise,
+#id_comment,
+form button,
+form p input,
+form p select {
+    width: 100%;
+}
+
+#id_comment {
+    height: 10em;
+}
+
+form p input,
+form p select,
+.select2-container .select2-selection--single {
+    height: 2.5em !important;
+    border: none;
+    border-radius: 5px;
+    border-color: #f8f9fa;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 5px;
+}
+
+#id_comment {
+    border: none;
+    border-radius: 5px;
+    border-color: #f8f9fa;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+.select2-container .select2-selection--single {
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+    display: flex;
+    align-items: center;
+}
+
+
+.form-container {
+    background-color: #cefad0;
+}
+
+.select2 {
+    width:100%!important;
+}
+
+/* .select2-container .select2-selection--single {
+    height: 2em !important;
+} */
+

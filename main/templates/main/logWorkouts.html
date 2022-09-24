@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Log Workouts
+{% endblock %}
+
+{% block extraCSS %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<link href="{% static 'css/logWorkouts.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+<div class="p-3">
+    <h5>
+        {% if mode == "create" %}
+            Log a workout with an exercise
+        {% else %}
+            Edit workout
+        {% endif %}
+    </h5>
+</div>
+<div class="form-container rounded p-3 mb-3">
+    {% if mode == "create" %}
+        <form action="{% url 'logWorkouts' %}", method="post">
+            {% csrf_token %}
+            {{ logForm.as_p }}
+            <button type="submit" name="save" class="btn btn-success">
+                {% if mode == "create" %}
+                    Log Workout
+                {% else %}
+                    Edit workout
+                {% endif %}
+            </button>
+        </form>    
+    {% else %}
+        <form action="{% url 'editWorkout' sort_by workout.id %}", method="post">
+            {% csrf_token %}
+            {{ logForm.as_p }}
+            <button type="submit" name="save" class="btn btn-success">
+                {% if mode == "create" %}
+                    Log Workout
+                {% else %}
+                    Edit workout
+                {% endif %}
+            </button>
+        </form>    
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block extraJS %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% if mode == "create" %}
+<script>
+    urlLogWorkouts = "{% url 'logWorkouts' %}"
+</script>
+{% else %}
+<script>
+    urlLogWorkouts = "{% url 'editWorkout' sort_by edit_id %}"
+</script>
+{% endif %}
+<script src="{% static 'js/logWorkouts.js' %}"></script>
+{% endblock %}

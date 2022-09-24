@@ -1,0 +1,39 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.btn-container {
+    min-width: 4em;
+}
+
+.btn-add {
+    padding: 15px 30px;
+}
+
+.btn-custom {
+    background: none;
+    border: 0;
+}
+
+.modal h5 {
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.invisible {
+    display: none;
+}
+
+#load-spin {
+    position: fixed;
+    left: 49%;
+}
+
+.list-group-item svg {
+    color: #5cb85c !important;
+}
+
+.list-group-item:hover {
+    background-color: #cefad0;
+}

@@ -1,0 +1,122 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+See Past Workouts
+{% endblock %}
+
+{% block extraCSS %}
+<link href="{% static 'css/seePastWorkouts.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+<div class="p-3">
+    <h5>Your past workouts ({{sort_by}})</h5>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            {% if sort_by == "newest" or sort_by == "oldest" %}
+                <th>Exercise</th>
+            {% else %}
+                <th></th>
+            {% endif %}
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Weight</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="workout-list-container">
+        {% for workout in workouts %}
+            <tr>
+                <td>{{workout.date|date:"SHORT_DATE_FORMAT"}}</td>
+                {% if sort_by == "newest" or sort_by == "oldest" %}
+                    <td>{{workout.exercise}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td>{{workout.sets}}</td>
+                <td>{{workout.reps}}</td>
+                <td>{{workout.weight}}</td>
+                <td>
+                    <div class="dropdown custom-dropdown">
+                        <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-three-dots-vertical custom-button" viewBox="0 0 16 16">
+                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#seeComment{{workout.id}}">See Comment</a></li>
+                            <li><a class="dropdown-item" href="{% url 'editWorkout' sort_by workout.id %}">Edit Workout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'deleteWorkoutConfirmation' sort_by workout.id %}">Delete Workout</a></li>
+                        </ul>
+                        <div class="modal fade" id="seeComment{{workout.id}}" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteConfirmationLabel">Comment: </h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{workout.comment}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if includeSeeMoreBtn %}
+<div class="spinner-border text-primary hide" role="status" id="load-spin">
+</div>
+<div class="mb-3" id="btn-see-more">
+    <button type="button" class="btn btn-success form-control">See More</button>
+</div>
+<div class="alert alert-danger hide" role="alert" id="load-alert">
+    There are no more workouts
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert" id="load-alert">
+    There are no more workouts
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extraJS %}
+{{workoutCount|json_script:"json-workoutCount"}}
+{{exerciseIDtoName|json_script:"json-exerciseIDtoName"}}
+<script>
+    const urlSeeMoreWorkouts = "{% url 'seeMoreWorkouts' sort_by %}" 
+    const urlEditWorkout = "{% url 'editWorkout' sort_by %}"
+    const urlDeleteWorkout = "{% url 'deleteWorkoutConfirmation' sort_by %}"
+</script>
+{% if sort_by == "newest" or sort_by == "oldest" %}
+    <script>
+        var addExercise = true
+    </script>
+{% else %}
+    <script>
+        var addExercise = false
+    </script>
+{% endif %}
+<script src="{% static 'js/seePastWorkouts.js' %}"></script>
+{% endblock %}
