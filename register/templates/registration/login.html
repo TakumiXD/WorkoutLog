@@ -7,6 +7,12 @@ Login
 {% endblock %}
 
 {% block content %}
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
 <div class="p-3">
     <h5>Login</h5>
 </div>
