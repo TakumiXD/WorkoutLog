@@ -5,6 +5,12 @@ A workout logging and tracking web application created with the Python-based web
 https://workout-log-website.herokuapp.com/
 
 ### Screenshots
+#### MANAGE EXERCISES
+![img-1](READMEimages/step2.PNG)
+#### LOG WORKOUTS
+![img-2](READMEimages/step3.PNG)
+#### SEE PAST WORKOUTS
+![img-3](READMEimages/step4.PNG)
 
 ### Features
  - Register / Login / Logout
