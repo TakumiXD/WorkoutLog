@@ -36,6 +36,11 @@
     border-radius: 30px;
 }
 
+.intro-container a {
+    color: white;
+    text-decoration: none;
+}
+
 .how-to-container {
     margin-bottom: 20vh;
 }
